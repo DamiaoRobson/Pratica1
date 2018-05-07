@@ -5,25 +5,31 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import grafo.Grafo;
+import grafo.Graph;
 
 public class GrafoTest {
 
-	private Grafo grafo;
-	private Grafo grafoSemPeso;
-	private Grafo grafoComPeso;
+	private Graph grafo;
+	private Graph grafoSemPeso;
+	private Graph grafoComPeso;
 	
 	@Before
 	public void setUp(){
-		grafo = new Grafo();
+		grafo = new Graph();
 	}
 	
 	@Test
 	public void testCriaGrafo() {
-		grafoSemPeso = grafo.criaGrafo("grafo1.txt");
-		grafoComPeso = grafo.criaGrafo("grafo2.txt");
+		grafoSemPeso = grafo.readGraph("grafo1.txt");
 		
 		System.out.println(grafoSemPeso);
+		
+	}
+	
+	@Test
+	public void testCriaGrafoComPeso() {
+		grafoComPeso = grafo.readGraph("grafo2.txt");
+		
 		System.out.println(grafoComPeso);
 	}
 

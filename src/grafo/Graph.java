@@ -3,6 +3,8 @@ package grafo;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
+
+import grafo.representacao.RepresentacaoGrafo;
 import persistencia.IOArquivo;
 
 /**
@@ -11,7 +13,7 @@ import persistencia.IOArquivo;
  *
  *         Grafo com suas funcionalidades
  */
-public class Grafo {
+public class Graph {
 
 	private final int POSICAO_QTD_VERTICES = 0;
 
@@ -21,19 +23,21 @@ public class Grafo {
 	/**
 	 * Contrutor
 	 */
-	public Grafo() {
+	public Graph() {
 
 	}
 
 	/**
-	 * Gera o grafo
+	 * Ler um grafo a partir de um arquivo de texto.O grafo sera descrito
+	 * segundo o seguinte formato: a primeira linha informa o numero de vertices
+	 * do grafo. Cada linha subsequente informa as arestas do mesmo.
 	 * 
 	 * @param path
 	 *            Caminho para encontrar o arquivo de texto com o grafo, caso nao
 	 *            encontre gera uma exception
 	 * @return Um grafo
 	 */
-	public Grafo criaGrafo(String path) {
+	public Graph readGraph(String path) {
 		List<String[]> arq = null;
 		try {
 			arq = IOArquivo.lerArquivo(path);
@@ -56,12 +60,12 @@ public class Grafo {
 		int qtdVertices = Integer.parseInt(arq.get(POSICAO_QTD_VERTICES)[POSICAO_QTD_VERTICES]);
 		vertices = new Vertice[qtdVertices];
 
-		for (int i = 1; i <= vertices.length; i++) {
+		for (int i = 1; i < arq.size(); i++) {
 			if (arq.get(i).length == 1)
 				vertices[this.qtdVertices++] = new Vertice(Integer.parseInt(arq.get(i)[0]));
 			else if (arq.get(i).length == 2)
 				criarAresta(arq.get(i)[0], arq.get(i)[1]);
-			else
+			else if (arq.get(i).length == 3)
 				criarArestaComPeso(arq.get(i)[0], arq.get(i)[1], arq.get(i)[2]);
 		}
 	}
@@ -97,7 +101,7 @@ public class Grafo {
 		Vertice vertice1 = new Vertice(Integer.parseInt(value1));
 		Vertice vertice2 = new Vertice(Integer.parseInt(value2));
 
-		Aresta aresta = new Aresta(vertice1, vertice2, Integer.parseInt(value2));
+		Aresta aresta = new Aresta(vertice1, vertice2, Double.parseDouble(peso));
 
 		adicionaVertice(aresta);
 	}
@@ -152,6 +156,15 @@ public class Grafo {
 			if (v != null && vertice.equals(v))
 				return true;
 		return false;
+	}
+	
+	public String graphRepresentation(Graph graph, String type){
+		RepresentacaoGrafo matriz = new RepresentacaoGrafo();
+		return matriz.representacao(graph, type);
+	}
+	
+	public int getQtdVertice(){
+		return this.qtdVertices;
 	}
 
 }

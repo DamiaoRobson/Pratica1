@@ -88,7 +88,7 @@ public class Aresta {
 	}
 
 	public double getPeso() {
-		return peso;
+		return this.peso;
 	}
 
 	public void setPeso(double peso) {
