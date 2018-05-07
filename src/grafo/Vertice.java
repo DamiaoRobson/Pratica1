@@ -48,7 +48,7 @@ public class Vertice {
 
 	@Override
 	public String toString() {
-		return "Vertice [valuer=" + valuer + "]";
+		return "Vertice (valuer=" + valuer + ")";
 	}
 
 	/**

@@ -56,7 +56,7 @@ public class Grafo {
 		int qtdVertices = Integer.parseInt(arq.get(POSICAO_QTD_VERTICES)[POSICAO_QTD_VERTICES]);
 		vertices = new Vertice[qtdVertices];
 
-		for (int i = 1; i < vertices.length; i++) {
+		for (int i = 1; i <= vertices.length; i++) {
 			if (arq.get(i).length == 1)
 				vertices[this.qtdVertices++] = new Vertice(Integer.parseInt(arq.get(i)[0]));
 			else if (arq.get(i).length == 2)

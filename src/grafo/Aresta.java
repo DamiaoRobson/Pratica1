@@ -68,7 +68,7 @@ public class Aresta {
 
 	@Override
 	public String toString() {
-		return "Vertice [start=" + start + ", end=" + end + "]";
+		return "Aresta (start=" + start + ", end=" + end + ", peso=" + peso + ")";
 	}
 
 	public Vertice getStart() {
