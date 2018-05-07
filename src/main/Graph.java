@@ -1,5 +1,7 @@
 package main;
 
+import grafo.Grafo;
+
 /**
  * 
  * @author Damiao Robson Domiciano
@@ -16,39 +18,39 @@ public class Graph {
 	 * @param path
 	 *            caminho de localizacao do grafo em arquivo texto.
 	 */
-	public Graph readGraph(String path) {
+	public Grafo readGraph(String path) {
 		return null;
 	}
 
-	public Graph readWeightedGraph(String path) {
+	public Grafo readWeightedGraph(String path) {
 		return null;
 	}
 
-	public int getVertexNumber(Graph graph) {
+	public int getVertexNumber(Grafo graph) {
 		return 0;
 	}
 
-	public int getEdgeNumber(Graph graph) {
+	public int getEdgeNumber(Grafo graph) {
 		return 0;
 	}
 
-	public float getMeanEdge(Graph graph) {
+	public float getMeanEdge(Grafo graph) {
 		return 0;
 	}
 	
-	public String graphRepresentation(Graph graph, String type) {
+	public String graphRepresentation(Grafo graph, String type) {
 		return null;
 	}
 	
-	public String BFS(Graph graph, String v) {
+	public String BFS(Grafo graph, String v) {
 		return null;
 	}
 	
-	public String DFS(Graph graph, String v) {
+	public String DFS(Grafo graph, String v) {
 		return null;
 	}
 	
-	public String SCC(Graph graph) {
+	public String SCC(Grafo graph) {
 		return null;
 	}
 	
@@ -56,7 +58,7 @@ public class Graph {
 		return null;
 	}
 	
-	public String mst(Graph graph) {
+	public String mst(Grafo graph) {
 		return null;
 	}
 

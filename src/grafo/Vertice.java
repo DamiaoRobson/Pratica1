@@ -11,7 +11,7 @@ import java.util.List;
 public class Vertice {
 
 	private int valuer;
-	private List<Aresta> vertices;
+	private List<Aresta> arestas;
 
 	/**
 	 * Cria Vertice com o valor e a lista que sai ou entra
@@ -21,7 +21,7 @@ public class Vertice {
 	 */
 	public Vertice(int valuer) {
 		this.valuer = valuer;
-		this.vertices = new LinkedList<>();
+		this.arestas = new LinkedList<>();
 	}
 
 	@Override
@@ -29,7 +29,6 @@ public class Vertice {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + valuer;
-		result = prime * result + ((vertices == null) ? 0 : vertices.hashCode());
 		return result;
 	}
 
@@ -43,11 +42,6 @@ public class Vertice {
 			return false;
 		Vertice other = (Vertice) obj;
 		if (valuer != other.valuer)
-			return false;
-		if (vertices == null) {
-			if (other.vertices != null)
-				return false;
-		} else if (!vertices.equals(other.vertices))
 			return false;
 		return true;
 	}
@@ -64,8 +58,12 @@ public class Vertice {
 	 * @return retorna verdadeiro para vercice dentro do padrao e nao addicionada
 	 *         anteriormente
 	 */
-	public boolean adicionaVertice(Aresta novaVertice) {
-		return vertices.add(novaVertice);
+	public boolean adicionaAresta(Aresta novaVertice) {
+		return arestas.add(novaVertice);
+	}
+	
+	public int getValue() {
+		return this.valuer;
 	}
 
 }
