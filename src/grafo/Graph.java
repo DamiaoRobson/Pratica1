@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-import grafo.representacao.RepresentacaoGrafo;
 import persistencia.IOArquivo;
 
 /**
@@ -157,14 +156,5 @@ public class Graph {
 				return true;
 		return false;
 	}
-	
-	public String graphRepresentation(Graph graph, String type){
-		RepresentacaoGrafo matriz = new RepresentacaoGrafo();
-		return matriz.representacao(graph, type);
-	}
-	
-	public int getQtdVertice(){
-		return this.qtdVertices;
-	}
-
+		
 }

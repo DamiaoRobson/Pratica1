@@ -27,7 +27,6 @@ public class IOArquivo {
 		List<String[]> listAux = new ArrayList<>();
 
 		FileReader arq = new FileReader(path);
-		@SuppressWarnings("resource")
 		BufferedReader lerArq = new BufferedReader(arq);
 
 		String linha = lerArq.readLine();
@@ -38,6 +37,7 @@ public class IOArquivo {
 		}
 
 		arq.close();
+		lerArq.close();
 
 		return listAux;
 	}

@@ -7,11 +7,11 @@ import grafo.Graph;
  * @author Damiao Robson Domiciano
  *
  */
-public class GraphFacade {
+public class GraphLib {
 	
 	
 	
-	public GraphFacade(){
+	public GraphLib(){
 
 	}
 
@@ -24,7 +24,7 @@ public class GraphFacade {
 	 *            caminho de localizacao do grafo em arquivo texto.
 	 */
 	public Graph readGraph(String path) {
-		return null;
+		return new Graph().readGraph(path);
 	}
 
 	public Graph readWeightedGraph(String path) {

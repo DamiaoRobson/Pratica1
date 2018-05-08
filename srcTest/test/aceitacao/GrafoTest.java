@@ -6,21 +6,25 @@ import org.junit.Before;
 import org.junit.Test;
 
 import grafo.Graph;
+import main.GraphLib;
 
 public class GrafoTest {
 
-	private Graph grafo;
+	private GraphLib grafo;
 	private Graph grafoSemPeso;
 	private Graph grafoComPeso;
 	
 	@Before
 	public void setUp(){
-		grafo = new Graph();
+		grafo = new GraphLib();
 	}
 	
 	@Test
 	public void testCriaGrafo() {
 		grafoSemPeso = grafo.readGraph("grafo1.txt");
+		grafoComPeso = grafo.readGraph("grafo2.txt");
+		
+		System.out.println(grafoComPeso);
 		
 		System.out.println(grafoSemPeso);
 		
