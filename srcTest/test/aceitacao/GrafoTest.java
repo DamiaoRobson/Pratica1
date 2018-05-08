@@ -10,31 +10,29 @@ import main.GraphLib;
 
 public class GrafoTest {
 
-	private GraphLib grafo;
+	private GraphLib library;
 	private Graph grafoSemPeso;
 	private Graph grafoComPeso;
 	
 	@Before
 	public void setUp(){
-		grafo = new GraphLib();
+		library = new GraphLib();
+		grafoSemPeso = library.readGraph("grafo1.txt");
+		grafoComPeso = library.readGraph("grafo1.txt");
 	}
 	
 	@Test
 	public void testCriaGrafo() {
-		grafoSemPeso = grafo.readGraph("grafo1.txt");
-		grafoComPeso = grafo.readGraph("grafo2.txt");
+		Graph newGrafoSemPeso = library.readGraph("grafo1.txt");
+		Graph newGrafoComPeso = library.readGraph("grafo2.txt");
 		
-		System.out.println(grafoComPeso);
-		
-		System.out.println(grafoSemPeso);
+		System.out.println(library.graphRepresentation(newGrafoSemPeso, "AM"));
+		System.out.println(library.graphRepresentation(newGrafoComPeso, "AM"));
 		
 	}
 	
 	@Test
 	public void testCriaGrafoComPeso() {
-		grafoComPeso = grafo.readGraph("grafo2.txt");
-		
-		System.out.println(grafoComPeso);
 	}
 
 }

@@ -1,17 +1,21 @@
 package main;
 
 import grafo.Graph;
+import grafo.representacao.RepresentacaoGrafo;
 
 /**
  * 
  * @author Damiao Robson Domiciano
+ * 
+ *         Gerecia os metodos da biblioteca, delegando as funcionalidades
  *
  */
 public class GraphLib {
-	
-	
-	
-	public GraphLib(){
+
+	/**
+	 * Construtor
+	 */
+	public GraphLib() {
 
 	}
 
@@ -49,11 +53,14 @@ public class GraphLib {
 	 * escolher a representação a ser utilizada.
 	 * 
 	 * @param graph
+	 *            Grajo regado por esta mesma biblioteca
 	 * @param type
-	 * @return
+	 *            O tipo de representacao Matriz de adjacencia AM e Lista de
+	 *            Adjacencia AL
+	 * @return Uma String com o tipo de representacao selecionado
 	 */
 	public String graphRepresentation(Graph graph, String type) {
-		return null;
+		return new RepresentacaoGrafo().representacao(graph, type);
 	}
 
 	public String BFS(Graph graph, String v) {

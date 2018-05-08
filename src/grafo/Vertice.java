@@ -55,13 +55,26 @@ public class Vertice {
 	 * Insere nova vertice a aresta
 	 * 
 	 * @param novaVertice
-	 * @return retorna verdadeiro para vercice dentro do padrao e nao addicionada
-	 *         anteriormente
+	 * @return retorna verdadeiro para vercice dentro do padrao e nao
+	 *         addicionada anteriormente
 	 */
 	public boolean adicionaAresta(Aresta novaVertice) {
 		return arestas.add(novaVertice);
 	}
-	
+
+	/**
+	 * Get das arestas ligadas a vertice
+	 * 
+	 * @return Um array de arestas que estao ligadas a vertice
+	 */
+	public Aresta[] getArestas() {
+		Aresta[] arest = new Aresta[this.arestas.size()];
+		for (int i = 0; i < this.arestas.size(); i++)
+			arest[i] = this.arestas.get(i);
+
+		return arest;
+	}
+
 	public int getValue() {
 		return this.valuer;
 	}
