@@ -20,6 +20,7 @@ public class Aresta {
 	public Aresta(Vertice start, Vertice end) {
 		this.start = start;
 		this.end = end;
+		this.peso = 1;
 	}
 
 	/**

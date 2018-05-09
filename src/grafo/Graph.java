@@ -2,7 +2,10 @@ package grafo;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.swing.JOptionPane;
 
 import persistencia.IOArquivo;
@@ -158,6 +161,76 @@ public class Graph {
 		return false;
 	}
 
+	/**
+	 * @author Pedro
+	 * Caminho mínimo. A biblioteca deve ser capaz de
+	 * encontrar o caminho mais curto entre dois vértices.
+	 * 
+	 * USO DO ALGORITMO DE BELLMAN-FORD:
+	 * Para cada vertice, atualizar sua distancia do "vertice raiz" sempre que necessario e analisar todas as suas outras arestas.
+	 *  **Ambos algoritmos (Bellman-Ford e Djikstra) falham em grafos com ciclos negativos!
+	 */
+	//Por enquanto o metodo ta "calculando" um mapa com as menores distancias entre um vertice "v" e todos os outros vertices
+	public String shortestPath(Vertice v, Vertice vfinal) {
+		
+		// Mapa associando Vertice como chave e a distancia de um "vertice raiz" passado no parametro até ele como valor.
+		Map<Vertice, Double> mapaDistancias = new HashMap<Vertice, Double>();
+		Map<Vertice, Vertice> mapaVerticePai = new HashMap<Vertice, Vertice>(); //Mapa associando cada vertice ao seu vertice pai. 
+		//Dizemos que V1 é pai de V2, se V1 foi usado para chegar até V2 por um "menor caminho". Sendo V1 e V2 vértices
+		
+		//Configurando o mapa/tabela:
+		mapaDistancias.put(v, 0.0); //A distancia entre o "vertice raiz" e ele mesmo é 0, ja a dist entre o vertice raiz e os outros é infinito inicialmente.
+		mapaVerticePai.put(v, v); //O vertice usado para chegar no vertice inicial com a menor distancia possivel, é ele mesmo
+		for(int i = 0; i < this.getVertices().length; i++) {
+			if(!this.getVertices()[i].equals(v)) {
+				mapaDistancias.put(this.getVertices()[i], Double.POSITIVE_INFINITY);	
+				mapaVerticePai.put(this.getVertices()[i], null);
+				
+			}
+		}
+		
+		
+		
+		//Em V-1 iteracoes, examinar cada vertice do grafo, observando os pesos das arestas que sao ligadas a ele, pois, temos como objetivo analisar todas as arestas do grafo
+		// V-1 iteracoes: Pois, nao precisa "caminhar" por todos os vertices do grafo para ter acesso a todas as arestas.
+			for(int i = 0; i < this.getQtdVertices() -1; i++) {
+				double currentPeso = mapaDistancias.get(this.getVertices()[i]);
+				Vertice vertice = this.getVertices()[i];
+				for(Aresta aresta : Arrays.asList(vertice.getArestas())) { //No if e no else if, esta havendo a atualizacao para uma distancia menor
+					if(!aresta.getStart().equals(vertice) && (mapaDistancias.get(aresta.getStart()) > aresta.getPeso() + currentPeso)) {
+						mapaDistancias.put(aresta.getStart(), aresta.getPeso() + currentPeso);
+						mapaVerticePai.put(aresta.getStart(), vertice); //Atualiza o pai no mapa
+					}else if (aresta.getStart().equals(vertice) && (mapaDistancias.get(aresta.getEnd()) > aresta.getPeso() + currentPeso)) {
+						mapaDistancias.put(aresta.getEnd(), aresta.getPeso() + currentPeso);
+						mapaVerticePai.put(aresta.getEnd(), vertice);
+					}
+				}
+			}
+			
+		//Percorrendo pai por pai, do vfinal até o vinicial(v), para produzir a String de saída do menor caminho entre v e vfinal.
+		String retorno = "";
+		retorno = vfinal.getValue() + retorno;
+		Vertice vpai = mapaVerticePai.get(vfinal);
+		while(!vpai.equals(v)) {
+			retorno = vpai.getValue() + " " + retorno;
+			vpai = mapaVerticePai.get(vpai);
+			
+		}
+		
+		retorno = vpai.getValue() + " " + retorno + System.lineSeparator() + "Mapa Vertice Pai: "+mapaVerticePai + System.lineSeparator()
+		+ "Vertice inicial e final: " + v.getValue() + vfinal.getValue();
+		return retorno;
+	}
+	
+	public Vertice getVerticePerValue(int value) throws Exception {
+		for(Vertice v : this.getVertices()) {
+			if (v.getValue() == value){
+				return v;
+			}
+		}
+		throw new Exception("Vertice with value " + value + " not found");
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
