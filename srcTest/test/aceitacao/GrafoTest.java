@@ -22,22 +22,22 @@ public class GrafoTest {
 	public void setUp(){
 		library = new GraphLib();
 		grafoSemPeso = library.readGraph("grafo1.txt");
-		grafoComPeso = library.readGraph("grafo1.txt");
+		grafoComPeso = library.readGraph("grafo2.txt");
 	}
 	
 	@Test
 	public void testCriaGrafo() {
 		Graph newGrafoSemPeso = library.readGraph("grafo1.txt");
 		Graph newGrafoComPeso = library.readGraph("grafo2.txt");
-		
-		
-		System.out.println(library.graphRepresentation(newGrafoSemPeso, "AM"));
-		System.out.println(library.graphRepresentation(newGrafoComPeso, "AM"));
-		
 	}
 	
 	@Test
-	public void testCriaGrafoComPeso() {
+	public void testGraphRerpesentation(){
+		System.out.println(library.graphRepresentation(grafoSemPeso, "AM"));
+		System.out.println(library.graphRepresentation(grafoComPeso, "AM"));
+		System.out.println(library.graphRepresentation(grafoSemPeso, "AL"));
+		System.out.println(library.graphRepresentation(grafoComPeso, "AL"));
+		
 	}
 	
 	@Test

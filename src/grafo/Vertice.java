@@ -1,7 +1,10 @@
 package grafo;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import comparador.ComparadorAresta;
 
 /**
  * @author Damiao Robson Domiciano
@@ -59,7 +62,9 @@ public class Vertice {
 	 *         addicionada anteriormente
 	 */
 	public boolean adicionaAresta(Aresta novaVertice) {
-		return arestas.add(novaVertice);
+		boolean guard = arestas.add(novaVertice);
+		Collections.sort(this.arestas, new ComparadorAresta());
+		return guard;
 	}
 
 	/**

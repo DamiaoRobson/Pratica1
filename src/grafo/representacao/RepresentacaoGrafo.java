@@ -1,10 +1,11 @@
 package grafo.representacao;
 
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.HashSet;
 
 import javax.swing.JOptionPane;
 
+import comparador.ComparadorVertice;
 import grafo.Aresta;
 import grafo.Graph;
 import grafo.Vertice;
@@ -48,69 +49,90 @@ public class RepresentacaoGrafo {
 	}
 
 	private void ordenarArray(Vertice[] grafoAux) {
-		Arrays.sort(grafoAux, new Comparator<Vertice>() {
-			@Override
-			public int compare(Vertice v1, Vertice v2) {
-				if (v1.getValue() > v2.getValue())	return 1;
-				if (v1.getValue() < v2.getValue())	return -1;
-				return 0;
-			}
-		});
+		Arrays.sort(grafoAux, new ComparadorVertice() );
 	}
 
 	private String criarRepresentacaoAM(Vertice[] vertices) {
-		String[][] rep = gerarArrayAM(vertices.length, vertices);
-		rep = matrisAdjacent(rep, vertices);
+		double[][] rep = gerarArrayAM(vertices.length, vertices);
+		rep = matrizAdjacent(rep, vertices);
 		return criarString(rep);
 	}
 
-	private String criarString(String[][] rep) {
+	private String criarString(double[][] rep) {
 		String str = "";
-		for (String[] linha : rep) {
-			for (String coluna : linha) {
-				str += coluna + " ";
+		for (double[] linha : rep) {
+			for (double coluna : linha) {
+				str += String.format("%.1g ", coluna);//coluna + " ";
 			}
 			str += FL;
 		}
 		return str;
 	}
 
-	private String[][] matrisAdjacent(String[][] rep, Vertice[] vertices) {
+	private double[][] matrizAdjacent(double[][] rep, Vertice[] vertices) {
 		int iniciarLinha = 1;
-
-		for (int i = iniciarLinha; i <= vertices.length; i++)
-			for (int j = iniciarLinha; j <= vertices.length; j++)
-				rep[i][j] = verificarAdjacencia(i, j, vertices);
+		HashSet<Aresta> arestas = getArestas(vertices);
+		for (Aresta aresta : arestas) {
+			int vertStart = iniciarLinha + indexVertice(aresta.getStart(), vertices);
+			int vertEnd = iniciarLinha + indexVertice(aresta.getEnd(), vertices);
+			rep[vertStart][vertEnd] = aresta.getHasPeso()? aresta.getPeso() : 1;
+			rep[vertEnd][vertStart] = aresta.getHasPeso()? aresta.getPeso() : 1;
+		}
 
 		return rep;
 	}
 
-	private String verificarAdjacencia(int i, int j, Vertice[] vertices) {
-		for (Aresta aresta : vertices[j -1].getArestas())
-			if (vertices[i -1].equals(aresta.getStart()) && vertices[i -1].equals(aresta.getEnd())) {
-				if (aresta.getPeso() > 0)
-					return "" + aresta.getPeso();
-				else
-					return "1";
-			}
 
-		return "0";
+	private int indexVertice(Vertice v, Vertice[] vertices) {
+		int aux = 0;
+		for (int i = 0; i < vertices.length; i++) {
+			if(vertices[i].equals(v))
+				aux = i;
+		}
+		return aux;
 	}
+	
 
-	private String[][] gerarArrayAM(int qtdVertices, Vertice[] vertices) {
-		String[][] aux = new String[qtdVertices + 1][qtdVertices + 1];
+	private double[][] gerarArrayAM(int qtdVertices, Vertice[] vertices) {
+		double[][] aux = new double[qtdVertices + 1][qtdVertices + 1];
 
-		aux[0][0] = " "; // psicao A11 da matriz vazia
+		aux[0][0] = 0; // psicao A11 da matriz vazia
 		for (int i = 1; i <= qtdVertices; i++) {
-			aux[INI_LINHA][i] = "" + vertices[i -1].getValue();
-			aux[i][INI_COLUNA] = "" + vertices[i -1].getValue();
+			aux[INI_LINHA][i] = vertices[i -1].getValue();
+			aux[i][INI_COLUNA] = vertices[i -1].getValue();
 		}
 		return aux;
 	}
 
-	private String criarRepresentacaoAL(Vertice[] grafoAux) {
-		// TODO Auto-generated method stub
-		return null;
+	private String criarRepresentacaoAL(Vertice[] vertices) {
+		String rep = gerarArrayAL(vertices);
+		return rep;
 	}
+	
+	private String gerarArrayAL(Vertice[] vertices) {
+		String str = "";
+		for (Vertice vertice : vertices) {
+			str += String.format("%d -",vertice.getValue());
+			for (Aresta arest : vertice.getArestas()) {
+				if(arest.getStart().getValue() != vertice.getValue())
+					str += " " + arest.getStart().getValue() + (arest.getHasPeso()? String.format("(%.1g)", arest.getPeso()): ""); 
+				if(arest.getEnd().getValue() != vertice.getValue())
+						str += " " + arest.getEnd().getValue() + (arest.getHasPeso()? String.format("(%.1g)", arest.getPeso()): "");
+			}
+			str += FL;
+		}
+		return str;
+	}
+
+	private HashSet<Aresta> getArestas(Vertice[] vertices){
+		HashSet<Aresta> arestas = new HashSet<>();
+		for (Vertice vertice : vertices) {
+			for (Aresta aresta : vertice.getArestas()) {
+				arestas.add(aresta);
+			}
+		}
+		return arestas;
+	}
+	
 
 }

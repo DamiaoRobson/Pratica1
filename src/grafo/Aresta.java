@@ -10,6 +10,7 @@ public class Aresta {
 	private Vertice start;
 	private Vertice end;
 	private double peso;
+	private boolean hasPeso;
 
 	/**
 	 * Inicia a aresta com Vertice de inicio e Vertice final
@@ -21,6 +22,7 @@ public class Aresta {
 		this.start = start;
 		this.end = end;
 		this.peso = 1;
+		this.hasPeso = false;
 	}
 
 	/**
@@ -34,6 +36,7 @@ public class Aresta {
 		this.start = start;
 		this.end = end;
 		this.peso = peso;
+		this.hasPeso = true;
 	}
 
 	@Override
@@ -96,6 +99,8 @@ public class Aresta {
 		this.peso = peso;
 	}
 	
-	
+	public boolean getHasPeso(){
+		return this.hasPeso;
+	}
 
 }
