@@ -55,7 +55,7 @@ public class Vertice {
 	}
 
 	/**
-	 * Insere nova vertice a aresta
+	 * Insere nova vertice a aresta e ordena de acordo com o vertice Start
 	 * 
 	 * @param novaVertice
 	 * @return retorna verdadeiro para vercice dentro do padrao e nao
