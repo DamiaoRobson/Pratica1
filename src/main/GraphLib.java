@@ -33,14 +33,22 @@ public class GraphLib {
 		return new Graph().readGraph(path);
 	}
 
+	/**
+	 * Ler um grafo a partir de um arquivo de texto.O grafo sera descrito
+	 * segundo o seguinte formato: a primeira linha informa o numero de vertices
+	 * do grafo. Cada linha subsequente informa as arestas e peso do mesmo.
+	 * 
+	 * @param path
+	 *            caminho de localizacao do grafo em arquivo texto.
+	 */
 	public Graph readWeightedGraph(String path) {
-		return null;
+		return new Graph().readGraph(path);
 	}
 
 	/**
-	 * RepresentaÃ§Ã£o de grafos utilizando tanto uma matriz de adjacÃªncia (type =
-	 * â€œAMâ€�), quanto uma lista de adjacÃªncia (type = â€œAL"). O usuÃ¡rio podera
-	 * escolher a representaÃ§Ã£o a ser utilizada.
+	 * RepresentaÃ§Ã£o de grafos utilizando tanto uma matriz de adjacÃªncia
+	 * (type = â€œAMâ€�), quanto uma lista de adjacÃªncia (type = â€œAL"). O
+	 * usuÃ¡rio podera escolher a representaÃ§Ã£o a ser utilizada.
 	 * 
 	 * @param graph
 	 *            Grajo regado por esta mesma biblioteca
@@ -52,20 +60,20 @@ public class GraphLib {
 	public String graphRepresentation(Graph graph, String type) {
 		return new RepresentacaoGrafo().representacao(graph, type);
 	}
-	
+
 	/**
-	 * @author Ivan
-	 * MÃ©todo que conta a quantidade de vertices de um determinado grafo
+	 * @author Ivan MÃ©todo que conta a quantidade de vertices de um determinado
+	 *         grafo
 	 * @param graph
 	 * @return quantidade de vertices do grafo
 	 */
 	public int getVertexNumber(Graph graph) {
 		return graph.getQtdVertices();
 	}
-	
+
 	/**
-	 * @author Ivan
-	 * MÃ©todo que conta a quantidade de arestas de um determinado grafo
+	 * @author Ivan MÃ©todo que conta a quantidade de arestas de um determinado
+	 *         grafo
 	 * @param graph
 	 * @return quantidade de arestas do grafo
 	 */
@@ -74,12 +82,11 @@ public class GraphLib {
 		for (Vertice vertice : graph.getVertices()) {
 			qntVertices += vertice.getQntArestas();
 		}
-		return (qntVertices/2);
+		return (qntVertices / 2);
 	}
-	
+
 	/**
-	 * @author Ivan
-	 * MÃ©todo que calcula o grau medio de um determinado grafo
+	 * @author Ivan MÃ©todo que calcula o grau medio de um determinado grafo
 	 * @param graph
 	 * @return grau medio do grafo
 	 */
@@ -90,7 +97,7 @@ public class GraphLib {
 				grauTotal += aresta.getPeso();
 			}
 		}
-		return (grauTotal/(2*this.getEdgeNumber(graph)));
+		return (grauTotal / (2 * this.getEdgeNumber(graph)));
 	}
 
 	public String BFS(Graph graph, String v) {

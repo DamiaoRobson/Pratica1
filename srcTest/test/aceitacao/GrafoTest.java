@@ -48,13 +48,13 @@ public class GrafoTest {
 	public void setUp(){
 		library = new GraphLib();
 		grafoSemPeso = library.readGraph("grafo1.txt");
-		grafoComPeso = library.readGraph("grafo2.txt");
+		grafoComPeso = library.readWeightedGraph("grafo2.txt");
 	}
 	
 	@Test
 	public void testCriaGrafo() {
 		Graph newGrafoSemPeso = library.readGraph("grafo1.txt");
-		Graph newGrafoComPeso = library.readGraph("grafo2.txt");
+		Graph newGrafoComPeso = library.readWeightedGraph("grafo2.txt");
 		assertEquals(representacaoAM, library.graphRepresentation(newGrafoSemPeso, "AM"));
 		assertEquals(representacaoAMComPeso, library.graphRepresentation(newGrafoComPeso, "AM"));
 	}
