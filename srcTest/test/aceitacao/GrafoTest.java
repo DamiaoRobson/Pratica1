@@ -62,7 +62,6 @@ public class GrafoTest {
 	public void testConnected() {
 		Graph newGrafo = library.readGraph("grafo1.txt");
 		Graph grafoDesconectado = library.readGraph("grafoDesconectado.txt");
-		System.out.println("Arestas" + newGrafo.getVertices()[4].getArestas().length);
 		Assert.assertEquals(true, library.connected(newGrafo));
 		Assert.assertEquals(false, library.connected(grafoDesconectado));
 		

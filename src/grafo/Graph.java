@@ -235,6 +235,7 @@ public class Graph {
 	
 	
 	/**
+	 * @author Pedro
 	 * Retorna true se o grafo é conectado, ou false se o grafo nao é conectado
 	 * @return
 	 */
@@ -254,7 +255,7 @@ public class Graph {
 	
 	/**
 	 * @param vertice
-	 * 
+	 * @author Pedro
 	 * Metodo auxiliar para ser usado no método connected.
 	 * -> Dado um vertice, retorna todos os vertices percorridos feita uma busca em 
 	 * largura(bfs) a partir do vertice passado.
@@ -289,7 +290,7 @@ public class Graph {
 			}
 			
 		}
-		System.out.println(verticesMarcados);
+		
 		
 		return verticesMarcados;
 		
@@ -300,7 +301,7 @@ public class Graph {
 	//Metodo auxiliar usado na bfs
 	private List<Vertice> getAdjacentVertices(Vertice vertice) {
 		List<Vertice> adjacentVertices = new LinkedList<Vertice>();
-		System.out.println("numero de Arestas do vertice: " + vertice.getArestas().length);
+		
 		for(Aresta aresta : vertice.getArestas()) {
 			if(aresta.getEnd().equals(vertice)) {
 				adjacentVertices.add(aresta.getStart());
