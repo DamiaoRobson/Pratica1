@@ -15,7 +15,11 @@ public class Vertice {
 
 	private int valuer;
 	private List<Aresta> arestas;
-
+	
+	public int getQntArestas() {
+		return arestas.size();
+	}
+	
 	/**
 	 * Cria Vertice com o valor e a lista que sai ou entra
 	 * 
