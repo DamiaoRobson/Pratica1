@@ -65,11 +65,11 @@ public class GrafoTest {
 		assertEquals(representacaoAMComPeso, library.graphRepresentation(grafoComPeso, "AM"));
 		assertEquals(representacaoAL, library.graphRepresentation(grafoSemPeso, "AL"));
 		assertEquals(representacaoALComPeso, library.graphRepresentation(grafoComPeso, "AL"));
-//		Imprimir Repreção do grafo
-		System.out.println("Representacao Grafo sem peso Matriz Adjacente:" + FL + library.graphRepresentation(grafoSemPeso, "AM"));
+//		Imprimir Reprecaoo do grafo
+		/*System.out.println("Representacao Grafo sem peso Matriz Adjacente:" + FL + library.graphRepresentation(grafoSemPeso, "AM"));
 		System.out.println("Representacao Grafo com peso Matriz Adjacente:" + FL + library.graphRepresentation(grafoComPeso, "AM"));
 		System.out.println("Representacao Grafo sem peso Lista Adjacente:" + FL + library.graphRepresentation(grafoSemPeso, "AL"));
-		System.out.println("Representacao Grafo com peso lista Adjacente:" + FL + library.graphRepresentation(grafoComPeso, "AL"));
+		System.out.println("Representacao Grafo com peso lista Adjacente:" + FL + library.graphRepresentation(grafoComPeso, "AL"));*/
 		
 	}
 	
