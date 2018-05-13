@@ -83,5 +83,6 @@ public class Vertice {
 	public int getValue() {
 		return this.valuer;
 	}
+	
 
 }
