@@ -45,7 +45,7 @@ public class RepresentacaoGrafo {
 			representacaoGrafo = criarRepresentacaoAL(grafoAux);
 		else
 			JOptionPane.showMessageDialog(null, "Tipo de representacao invalido!");
-		return representacaoGrafo;
+		return representacaoGrafo.trim();
 	}
 
 	private void ordenarArray(Vertice[] grafoAux) {
@@ -62,8 +62,9 @@ public class RepresentacaoGrafo {
 		String str = "";
 		for (double[] linha : rep) {
 			for (double coluna : linha) {
-				str += String.format("%.1g ", coluna);//coluna + " ";
+				str += String.format("%.1g ", coluna);
 			}
+			str = str.trim();
 			str += FL;
 		}
 		return str;

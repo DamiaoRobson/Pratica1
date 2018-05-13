@@ -16,9 +16,32 @@ import main.GraphLib;
 
 public class GrafoTest {
 
+	private final String FL = System.lineSeparator();
 	private GraphLib library;
 	private Graph grafoSemPeso;
 	private Graph grafoComPeso;
+	private String representacaoAM ="0 1 2 3 4 5" + FL +
+									"1 0 1 0 0 1" + FL +
+									"2 1 0 0 0 1" + FL +
+									"3 0 0 0 0 1" + FL +
+									"4 0 0 0 0 1" + FL +
+									"5 1 1 1 1 0";
+	private String representacaoAMComPeso = "0 1 2 3 4 5" + FL +
+											"1 0 0,1 0 0 1" + FL +
+											"2 0,1 0 0 0 2" + FL +
+											"3 0 0 0 1 5" + FL +
+											"4 0 0 1 0 2" + FL +
+											"5 1 2 5 2 0";
+	private String representacaoAL ="1 - 2 5" + FL +
+									"2 - 1 5" + FL +
+									"3 - 5" + FL +
+									"4 - 5" + FL +
+									"5 - 1 2 4 3";
+	private String representacaoALComPeso = "1 - 2(0,1) 5(1)" + FL +
+											"2 - 1(0,1) 5(2)" + FL +
+											"3 - 4(1) 5(5)" + FL +
+											"4 - 3(1) 5(2)" + FL +
+											"5 - 1(1) 2(2) 4(2) 3(5)";
 
 	
 	@Before
@@ -32,14 +55,21 @@ public class GrafoTest {
 	public void testCriaGrafo() {
 		Graph newGrafoSemPeso = library.readGraph("grafo1.txt");
 		Graph newGrafoComPeso = library.readGraph("grafo2.txt");
+		assertEquals(representacaoAM, library.graphRepresentation(newGrafoSemPeso, "AM"));
+		assertEquals(representacaoAMComPeso, library.graphRepresentation(newGrafoComPeso, "AM"));
 	}
 	
 	@Test
 	public void testGraphRerpesentation(){
-		System.out.println(library.graphRepresentation(grafoSemPeso, "AM"));
-		System.out.println(library.graphRepresentation(grafoComPeso, "AM"));
-		System.out.println(library.graphRepresentation(grafoSemPeso, "AL"));
-		System.out.println(library.graphRepresentation(grafoComPeso, "AL"));
+		assertEquals(representacaoAM, library.graphRepresentation(grafoSemPeso, "AM"));
+		assertEquals(representacaoAMComPeso, library.graphRepresentation(grafoComPeso, "AM"));
+		assertEquals(representacaoAL, library.graphRepresentation(grafoSemPeso, "AL"));
+		assertEquals(representacaoALComPeso, library.graphRepresentation(grafoComPeso, "AL"));
+//		Imprimir Repreção do grafo
+		System.out.println("Representacao Grafo sem peso Matriz Adjacente:" + FL + library.graphRepresentation(grafoSemPeso, "AM"));
+		System.out.println("Representacao Grafo com peso Matriz Adjacente:" + FL + library.graphRepresentation(grafoComPeso, "AM"));
+		System.out.println("Representacao Grafo sem peso Lista Adjacente:" + FL + library.graphRepresentation(grafoSemPeso, "AL"));
+		System.out.println("Representacao Grafo com peso lista Adjacente:" + FL + library.graphRepresentation(grafoComPeso, "AL"));
 		
 	}
 	
