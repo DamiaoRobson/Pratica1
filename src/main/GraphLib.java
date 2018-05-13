@@ -38,9 +38,9 @@ public class GraphLib {
 	}
 
 	/**
-	 * Representação de grafos utilizando tanto uma matriz de adjacência (type =
-	 * “AM”), quanto uma lista de adjacência (type = “AL"). O usuário podera
-	 * escolher a representação a ser utilizada.
+	 * RepresentaÃ§Ã£o de grafos utilizando tanto uma matriz de adjacÃªncia (type =
+	 * â€œAMâ€�), quanto uma lista de adjacÃªncia (type = â€œAL"). O usuÃ¡rio podera
+	 * escolher a representaÃ§Ã£o a ser utilizada.
 	 * 
 	 * @param graph
 	 *            Grajo regado por esta mesma biblioteca
@@ -55,7 +55,7 @@ public class GraphLib {
 	
 	/**
 	 * @author Ivan
-	 * Método que conta a quantidade de vertices de um determinado grafo
+	 * MÃ©todo que conta a quantidade de vertices de um determinado grafo
 	 * @param graph
 	 * @return quantidade de vertices do grafo
 	 */
@@ -65,7 +65,7 @@ public class GraphLib {
 	
 	/**
 	 * @author Ivan
-	 * Método que conta a quantidade de arestas de um determinado grafo
+	 * MÃ©todo que conta a quantidade de arestas de um determinado grafo
 	 * @param graph
 	 * @return quantidade de arestas do grafo
 	 */
@@ -79,7 +79,7 @@ public class GraphLib {
 	
 	/**
 	 * @author Ivan
-	 * Método que calcula o grau medio de um determinado grafo
+	 * MÃ©todo que calcula o grau medio de um determinado grafo
 	 * @param graph
 	 * @return grau medio do grafo
 	 */
@@ -101,12 +101,8 @@ public class GraphLib {
 		return null;
 	}
 
-	public String SCC(Graph graph) {
-		return null;
-	}
-
-	public String shortestPath(int v1, int v2) {
-		return null;
+	public boolean connected(Graph graph) {
+		return graph.connected();
 	}
 
 	public String mst(Graph graph) {

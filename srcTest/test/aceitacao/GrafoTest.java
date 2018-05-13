@@ -5,12 +5,13 @@ import static org.junit.Assert.*;
 import java.text.DecimalFormat;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import grafo.Graph;
 import grafo.Vertice;
-import junit.framework.Assert;
+
 import main.GraphLib;
 
 public class GrafoTest {
@@ -48,14 +49,25 @@ public class GrafoTest {
 		Vertice[] vertices = newGrafo.getVertices();
 		try {
 			Vertice vinicial = newGrafo.getVerticePerValue(1);
-			Vertice vfinal = newGrafo.getVerticePerValue(5);
+			Vertice vfinal = newGrafo.getVerticePerValue(4);
 			String mapaDeMenoresCaminhos = newGrafo.shortestPath(vinicial, vfinal);
-			System.out.println("Mapa de menores caminhos: " + mapaDeMenoresCaminhos);
+			Assert.assertTrue("1 5 4".equals(mapaDeMenoresCaminhos));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void testConnected() {
+		Graph newGrafo = library.readGraph("grafo1.txt");
+		Graph grafoDesconectado = library.readGraph("grafoDesconectado.txt");
+		System.out.println("Arestas" + newGrafo.getVertices()[4].getArestas().length);
+		Assert.assertEquals(true, library.connected(newGrafo));
+		Assert.assertEquals(false, library.connected(grafoDesconectado));
+		
+	}
+	
 	
 	@Test
 	public void testVertexNumber() {

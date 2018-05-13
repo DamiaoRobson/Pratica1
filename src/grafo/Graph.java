@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import javax.swing.JOptionPane;
 
@@ -218,8 +220,7 @@ public class Graph {
 			
 		}
 		
-		retorno = vpai.getValue() + " " + retorno + System.lineSeparator() + "Mapa Vertice Pai: "+mapaVerticePai + System.lineSeparator()
-		+ "Vertice inicial e final: " + v.getValue() + vfinal.getValue();
+		retorno = vpai.getValue() + " " + retorno;
 		return retorno;
 	}
 	
@@ -230,6 +231,85 @@ public class Graph {
 			}
 		}
 		throw new Exception("Vertice with value " + value + " not found");
+	}
+	
+	
+	/**
+	 * Retorna true se o grafo é conectado, ou false se o grafo nao é conectado
+	 * @return
+	 */
+	public boolean connected() {
+		Map<Vertice, Boolean> vtcs = BfsAuxiliar(this.getVertices()[0]);
+		for(Vertice v : vtcs.keySet()) {
+			if (vtcs.get(v) == false) { //Significa que na bfs, houve vertices nao visitados, logo, o grafo e desconectado
+				return false;
+			}
+		}
+		
+		return true; //todos os vertices foram visitados.
+		
+	}
+	
+	
+	
+	/**
+	 * @param vertice
+	 * 
+	 * Metodo auxiliar para ser usado no método connected.
+	 * -> Dado um vertice, retorna todos os vertices percorridos feita uma busca em 
+	 * largura(bfs) a partir do vertice passado.
+	 * @return Mapa com a chave sendo os vertices do grafo e o valor como sendo "true" se o vertice foi visitado
+	 * ou "false" se o vertice nao foi visitado pela busca em largura
+	 */
+	private Map<Vertice, Boolean> BfsAuxiliar(Vertice vertice){
+		Map<Vertice, Boolean> verticesMarcados = new HashMap<Vertice, Boolean>();
+		Queue<Vertice> fila = new LinkedList<Vertice>();
+		for(Vertice v : this.getVertices()) {//adiciona todos os vertices no mapa como nao marcados
+			verticesMarcados.put(v, false);
+		}
+		
+		//Marca o vertice inicial e enfileira ele
+		verticesMarcados.put(vertice, true);
+		fila.add(vertice);
+		
+		while(!fila.isEmpty()) {
+			Vertice currentVertice = fila.remove();
+			
+			for(Vertice v : verticesMarcados.keySet()) { //Loop pra fixar o erro do "id" do objeto...
+				if (v.getValue() == currentVertice.getValue()) {
+					currentVertice = v;
+				}
+			}
+			
+			for(Vertice v : getAdjacentVertices(currentVertice)) {
+				if(verticesMarcados.get(v) == false) {
+					verticesMarcados.put(v, true);
+					fila.add(v);	
+				}
+			}
+			
+		}
+		System.out.println(verticesMarcados);
+		
+		return verticesMarcados;
+		
+		
+		
+	}
+	
+	//Metodo auxiliar usado na bfs
+	private List<Vertice> getAdjacentVertices(Vertice vertice) {
+		List<Vertice> adjacentVertices = new LinkedList<Vertice>();
+		System.out.println("numero de Arestas do vertice: " + vertice.getArestas().length);
+		for(Aresta aresta : vertice.getArestas()) {
+			if(aresta.getEnd().equals(vertice)) {
+				adjacentVertices.add(aresta.getStart());
+			}else {
+				adjacentVertices.add(aresta.getEnd());
+			}
+		}
+		
+		return adjacentVertices;
 	}
 	
 	@Override
