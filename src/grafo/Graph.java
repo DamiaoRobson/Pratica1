@@ -1,9 +1,13 @@
 package grafo;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +15,7 @@ import java.util.Queue;
 
 import javax.swing.JOptionPane;
 
+import comparador.ComparadorVertice;
 import persistencia.IOArquivo;
 
 /**
@@ -166,8 +171,8 @@ public class Graph {
 
 	/**
 	 * @author Pedro
-	 * Caminho mínimo. A biblioteca deve ser capaz de
-	 * encontrar o caminho mais curto entre dois vértices.
+	 * Caminho mï¿½nimo. A biblioteca deve ser capaz de
+	 * encontrar o caminho mais curto entre dois vï¿½rtices.
 	 * 
 	 * USO DO ALGORITMO DE BELLMAN-FORD:
 	 * Para cada vertice, atualizar sua distancia do "vertice raiz" sempre que necessario e analisar todas as suas outras arestas.
@@ -176,14 +181,14 @@ public class Graph {
 	//Por enquanto o metodo ta "calculando" um mapa com as menores distancias entre um vertice "v" e todos os outros vertices
 	public String shortestPath(Vertice v, Vertice vfinal) {
 		
-		// Mapa associando Vertice como chave e a distancia de um "vertice raiz" passado no parametro até ele como valor.
+		// Mapa associando Vertice como chave e a distancia de um "vertice raiz" passado no parametro atï¿½ ele como valor.
 		Map<Vertice, Double> mapaDistancias = new HashMap<Vertice, Double>();
 		Map<Vertice, Vertice> mapaVerticePai = new HashMap<Vertice, Vertice>(); //Mapa associando cada vertice ao seu vertice pai. 
-		//Dizemos que V1 é pai de V2, se V1 foi usado para chegar até V2 por um "menor caminho". Sendo V1 e V2 vértices
+		//Dizemos que V1 ï¿½ pai de V2, se V1 foi usado para chegar atï¿½ V2 por um "menor caminho". Sendo V1 e V2 vï¿½rtices
 		
 		//Configurando o mapa/tabela:
-		mapaDistancias.put(v, 0.0); //A distancia entre o "vertice raiz" e ele mesmo é 0, ja a dist entre o vertice raiz e os outros é infinito inicialmente.
-		mapaVerticePai.put(v, v); //O vertice usado para chegar no vertice inicial com a menor distancia possivel, é ele mesmo
+		mapaDistancias.put(v, 0.0); //A distancia entre o "vertice raiz" e ele mesmo ï¿½ 0, ja a dist entre o vertice raiz e os outros ï¿½ infinito inicialmente.
+		mapaVerticePai.put(v, v); //O vertice usado para chegar no vertice inicial com a menor distancia possivel, ï¿½ ele mesmo
 		for(int i = 0; i < this.getVertices().length; i++) {
 			if(!this.getVertices()[i].equals(v)) {
 				mapaDistancias.put(this.getVertices()[i], Double.POSITIVE_INFINITY);	
@@ -210,7 +215,7 @@ public class Graph {
 				}
 			}
 			
-		//Percorrendo pai por pai, do vfinal até o vinicial(v), para produzir a String de saída do menor caminho entre v e vfinal.
+		//Percorrendo pai por pai, do vfinal atï¿½ o vinicial(v), para produzir a String de saï¿½da do menor caminho entre v e vfinal.
 		String retorno = "";
 		retorno = vfinal.getValue() + retorno;
 		Vertice vpai = mapaVerticePai.get(vfinal);
@@ -236,7 +241,7 @@ public class Graph {
 	
 	/**
 	 * @author Pedro
-	 * Retorna true se o grafo é conectado, ou false se o grafo nao é conectado
+	 * Retorna true se o grafo ï¿½ conectado, ou false se o grafo nao ï¿½ conectado
 	 * @return
 	 */
 	public boolean connected() {
@@ -256,7 +261,7 @@ public class Graph {
 	/**
 	 * @param vertice
 	 * @author Pedro
-	 * Metodo auxiliar para ser usado no método connected.
+	 * Metodo auxiliar para ser usado no mï¿½todo connected.
 	 * -> Dado um vertice, retorna todos os vertices percorridos feita uma busca em 
 	 * largura(bfs) a partir do vertice passado.
 	 * @return Mapa com a chave sendo os vertices do grafo e o valor como sendo "true" se o vertice foi visitado
@@ -311,6 +316,137 @@ public class Graph {
 		}
 		
 		return adjacentVertices;
+	}
+	
+	/**
+	 * @author Danielle de Lima Vieira
+	 * O mÃ©todo recebe um grafo conectado e um vertice raiz e percorre o grafo realizando uma  busca em profundidade. Como resultado o mÃ©todo
+	 * retorna uma string que representa a Ã¡rvore gerada pela busca. 
+	 * @param raiz - vertice do qual o mÃ©todo iniciarÃ¡ a busca
+	 * @return string que representa a Ã¡rvore de busca
+	 */
+	public String DFS(int raiz) {
+		List<Vertice> vertices = geraListaOrdenadaDeVerticesDoGrafo();
+	
+		Deque<Vertice> pilha = new ArrayDeque<>();
+		Map<Vertice, Integer> nivel = new HashMap<>();
+		Map<Vertice, Vertice> predecessor = new HashMap<>();
+		List<Vertice> marcados = new ArrayList<>();
+		
+		
+		for (Vertice vertice : vertices) {
+			if(vertice.getValue() == raiz) {
+				nivel.put(vertice, 0);
+				predecessor.put(vertice, null);
+				pilha.push(vertice);
+				marcados.add(vertice);
+				break;
+			}
+		}
+		
+		while (!pilha.isEmpty()) {
+			Vertice cabecaDaPilha = pilha.peek();
+			int valor = cabecaDaPilha.getValue();
+			List<Aresta> arestas = new ArrayList<>();
+			arestas = Arrays.asList(vertices.get(valor - 1).getArestas());
+			Vertice vizinho = encontraVerticeVizinho(arestas, pilha, marcados);
+			
+			if(!arestas.isEmpty() && vizinho != null) {
+				pilha.push(vizinho);
+				predecessor.put(vizinho, cabecaDaPilha);
+				nivel.put(vizinho, nivel.get(cabecaDaPilha) + 1);
+			} else {
+				pilha.pop();
+			}
+		}
+
+		return geraStringDeSaidaBFSeDFS(vertices, nivel, predecessor);
+	}
+	
+	/**
+	 * @author Danielle de Lima Vieira
+	 * O mÃ©todo recebe um grafo conectado e um vertice raiz e percorre o grafo realizando uma  busca em largura. Como resultado o mÃ©todo
+	 * retorna uma string que representa a Ã¡rvore gerada pela busca.  
+	 * @param raiz - vertice do qual o mÃ©todo iniciarÃ¡ a busca
+	 * @return string que representa a Ã¡rvore de busca
+	 */
+	public String BFS(int raiz) {
+		List<Vertice> vertices = geraListaOrdenadaDeVerticesDoGrafo();
+	
+		Deque<Vertice> fila = new ArrayDeque<>();
+		Map<Vertice, Integer> nivel = new HashMap<>();
+		Map<Vertice, Vertice> predecessor = new HashMap<>();
+		List<Vertice> marcados = new ArrayList<>();
+		
+		
+		for (Vertice vertice : vertices) {
+			if(vertice.getValue() == raiz) {
+				nivel.put(vertice, 0);
+				predecessor.put(vertice, null);
+				fila.offer(vertice);
+				marcados.add(vertice);
+				break;
+			}
+		}
+	
+		while (!fila.isEmpty()) {
+			Vertice cabecaDaFila = fila.peek();
+			int valor = cabecaDaFila.getValue();
+			List<Aresta> arestas = new ArrayList<>();
+			arestas = Arrays.asList(vertices.get(valor - 1).getArestas());
+			Vertice vizinho = encontraVerticeVizinho(arestas, fila, marcados);
+			
+			if(!arestas.isEmpty() && vizinho != null) {
+				fila.offer(vizinho);
+				predecessor.put(vizinho, cabecaDaFila);
+				nivel.put(vizinho, nivel.get(cabecaDaFila) + 1);
+			} else {
+				fila.remove();
+			}
+		}
+		
+		return geraStringDeSaidaBFSeDFS(vertices, nivel, predecessor);
+	}
+	
+	/* encontra e retorna um vertice vizinho que ainda nÃ£o tenha sido marcado para os mÃ©todos BFS e DFS ou retorna null caso 
+	nÃ£o existam vertices vizinhos nÃ£o marcados */
+	private Vertice encontraVerticeVizinho(List<Aresta> arestas, Deque<Vertice> pilhaOuFila, List<Vertice> marcados) {
+		if(!arestas.isEmpty()) {
+			for (Aresta aresta : arestas) {
+				if(!pilhaOuFila.contains(aresta.getStart()) && !marcados.contains(aresta.getStart())) {
+					marcados.add(aresta.getStart());
+					return aresta.getStart(); 
+				} else if(!pilhaOuFila.contains(aresta.getEnd()) && !marcados.contains(aresta.getEnd())) {
+					marcados.add(aresta.getEnd());
+					return aresta.getEnd();
+				}
+			}
+			return null;
+		}
+		return null;
+	}
+	
+	//gera e retorna um ArrayList ordenado a partir do conjunto de vertices do grafo.
+	private List<Vertice> geraListaOrdenadaDeVerticesDoGrafo() {
+		List<Vertice> vertices = new ArrayList<>();
+		vertices = Arrays.asList(this.getVertices());
+		Collections.sort(vertices, new ComparadorVertice());
+		return vertices;
+	}
+	
+	//gera e retorna uma string que representa a Ã¡rvore de busca resultante dos mÃ©todos BFS ou DSF.
+	private String geraStringDeSaidaBFSeDFS(List<Vertice> vertices, Map<Vertice, Integer> nivel, Map<Vertice, Vertice> predecessor) {
+		Iterator<Vertice> itr = vertices.iterator();
+		String str = "";
+		while (itr.hasNext()) {
+			Vertice vertice = itr.next();
+			if(predecessor.get(vertice) == null) {
+				str += vertice.getValue() + " - " + nivel.get(vertice) + " -" + System.lineSeparator();
+			} else {
+				str += vertice.getValue() + " - " + nivel.get(vertice) + " "  + predecessor.get(vertice).getValue() + System.lineSeparator();
+			}
+		}
+		return str;
 	}
 	
 	@Override

@@ -3,7 +3,6 @@ package test.aceitacao;
 import static org.junit.Assert.*;
 
 import java.text.DecimalFormat;
-import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,6 +19,7 @@ public class GrafoTest {
 	private GraphLib library;
 	private Graph grafoSemPeso;
 	private Graph grafoComPeso;
+	private Graph grafoSemPeso2;
 	private String representacaoAM ="0 1 2 3 4 5" + FL +
 									"1 0 1 0 0 1" + FL +
 									"2 1 0 0 0 1" + FL +
@@ -42,6 +42,28 @@ public class GrafoTest {
 											"3 - 4(1) 5(5)" + FL +
 											"4 - 3(1) 5(2)" + FL +
 											"5 - 1(1) 2(2) 4(2) 3(5)";
+	
+	private String representacaoBFSSemPeso = "1 - 0 -" +  FL + 
+											"2 - 1 1" + FL + 
+											"3 - 2 5" + FL + 
+											"4 - 2 5" + FL + 
+											"5 - 1 1" + FL;
+	
+	private String representacaoDFSSemPeso ="1 - 0 -" +  FL + 
+											"2 - 1 1" + FL + 
+											"3 - 3 5" + FL + 
+											"4 - 3 5" + FL + 
+											"5 - 2 2" + FL;
+	
+	private String representacaoDFSSemPeso2 ="1 - 0 -" +  FL + 
+											"2 - 1 1" + FL + 
+											"3 - 2 2" + FL + 
+											"4 - 2 2" + FL;
+	
+	private String representacaoBFSSemPeso2 ="1 - 0 -" +  FL + 
+											"2 - 1 1" + FL + 
+											"3 - 1 1" + FL + 
+											"4 - 2 2" + FL;
 
 	
 	@Before
@@ -49,6 +71,7 @@ public class GrafoTest {
 		library = new GraphLib();
 		grafoSemPeso = library.readGraph("grafo1.txt");
 		grafoComPeso = library.readWeightedGraph("grafo2.txt");
+		grafoSemPeso2 = library.readGraph("grafo3.txt");
 	}
 	
 	@Test
@@ -138,6 +161,18 @@ public class GrafoTest {
 		
 		//Assert.assertEquals("1,85", saida, 0);
 		Assert.assertEquals("1,85", saida);
+	}
+	
+	@Test
+	public void testDFS() {
+		assertEquals(representacaoDFSSemPeso, library.DFS(grafoSemPeso, 1));
+		assertEquals(representacaoDFSSemPeso2, library.DFS(grafoSemPeso2, 1));
+	}
+	
+	@Test
+	public void testBFS() {
+		assertEquals(representacaoBFSSemPeso, library.BFS(grafoSemPeso, 1));
+		assertEquals(representacaoBFSSemPeso2, library.BFS(grafoSemPeso2, 1));
 	}
 
 }

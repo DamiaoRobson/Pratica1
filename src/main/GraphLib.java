@@ -100,12 +100,26 @@ public class GraphLib {
 		return (grauTotal / (2 * this.getEdgeNumber(graph)));
 	}
 
-	public String BFS(Graph graph, String v) {
-		return null;
+	/**
+	 * @author Danielle de Lima Vieira
+	 * O método recebe um grafo conectado e um vertice raiz e percorre o grafo realizando uma  busca em largura. Como resultado o método
+	 * retorna uma string que representa a árvore gerada pela busca.  
+	 * @param verticeRaiz - vertice do qual o método iniciará a busca
+	 * @return string que representa a árvore de busca
+	 */
+	public String BFS(Graph graph, int verticeRaiz) {
+		return graph.BFS(verticeRaiz);
 	}
 
-	public String DFS(Graph graph, String v) {
-		return null;
+	/**
+	 * @author Danielle de Lima Vieira
+	 * O método recebe um grafo conectado e um vertice raiz e percorre o grafo realizando uma  busca em profundidade. Como resultado o método
+	 * retorna uma string que representa a árvore gerada pela busca. 
+	 * @param verticeRaiz - vertice do qual o método iniciará a busca
+	 * @return string que representa a árvore de busca
+	 */
+	public String DFS(Graph graph, int verticeRaiz) {
+		return graph.DFS(verticeRaiz);
 	}
 
 	public boolean connected(Graph graph) {
