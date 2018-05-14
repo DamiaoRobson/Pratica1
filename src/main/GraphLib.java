@@ -1,6 +1,5 @@
 package main;
 
-import grafo.Aresta;
 import grafo.Graph;
 import grafo.Vertice;
 import grafo.representacao.RepresentacaoGrafo;
