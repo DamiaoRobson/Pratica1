@@ -153,14 +153,17 @@ public class GrafoTest {
 	@Test
 	public void testGetMeanEdge() {
 		Graph grafo2 = library.readGraph("grafo2.txt");
+		Graph grafo1 = library.readGraph("grafo1.txt");
 		
-		library.getMeanEdge(grafo2);
-		DecimalFormat df = new DecimalFormat("0.##");
+		DecimalFormat df = new DecimalFormat("0.#");
 		String saida = df.format(library.getMeanEdge(grafo2));
+		String saida1 = df.format(library.getMeanEdge(grafo1));
 		
 		
 		//Assert.assertEquals("1,85", saida, 0);
-		Assert.assertEquals("1,85", saida);
+		Assert.assertEquals("2,4", saida);
+		
+		Assert.assertEquals("2", saida1);
 	}
 	
 	@Test

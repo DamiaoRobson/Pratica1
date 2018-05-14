@@ -62,8 +62,8 @@ public class GraphLib {
 	}
 
 	/**
-	 * @author Ivan MÃ©todo que conta a quantidade de vertices de um determinado
-	 *         grafo
+	 * @author Ivan 
+	 * Metodo que conta a quantidade de vertices de um determinado grafo
 	 * @param graph
 	 * @return quantidade de vertices do grafo
 	 */
@@ -72,8 +72,8 @@ public class GraphLib {
 	}
 
 	/**
-	 * @author Ivan MÃ©todo que conta a quantidade de arestas de um determinado
-	 *         grafo
+	 * @author Ivan
+	 *  Metodo que conta a quantidade de arestas de um determinado grafo
 	 * @param graph
 	 * @return quantidade de arestas do grafo
 	 */
@@ -86,18 +86,17 @@ public class GraphLib {
 	}
 
 	/**
-	 * @author Ivan MÃ©todo que calcula o grau medio de um determinado grafo
+	 * @author Ivan 
+	 * Metodo que calcula o grau medio de um determinado grafo
 	 * @param graph
 	 * @return grau medio do grafo
 	 */
 	public float getMeanEdge(Graph graph) {
 		float grauTotal = 0;
 		for (Vertice vertice : graph.getVertices()) {
-			for (Aresta aresta : vertice.getArestas()) {
-				grauTotal += aresta.getPeso();
-			}
+			grauTotal += vertice.getQntArestas();
 		}
-		return (grauTotal / (2 * this.getEdgeNumber(graph)));
+		return grauTotal/graph.getQtdVertices();
 	}
 
 	/**
