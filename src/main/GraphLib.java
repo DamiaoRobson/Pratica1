@@ -1,5 +1,11 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+
+import comparador.comparaPesoAresta;
+import grafo.Aresta;
 import grafo.Graph;
 import grafo.Vertice;
 import grafo.representacao.RepresentacaoGrafo;
@@ -125,7 +131,36 @@ public class GraphLib {
 	}
 
 	public String mst(Graph graph) {
+		ArrayList<Aresta> arestas = new ArrayList(); 
+		arestas.addAll(getArestas(graph.getVertices()));
+		/*Collections.sort(arestas, new comparaPesoAresta());
+		HashSet<Vertice> vertices = new HashSet<>();
+		
+		for (Aresta aresta : arestas) {
+			vertices.add(aresta.getStart());
+			vertices.add(aresta.getEnd());
+		}*/
+		
+		return "nao implementado";//fazerString(vertices);
+	}
+	
+	private String fazerString(HashSet<Aresta> arestas) {
+		String aux = "";
+		for (Aresta aresta : arestas) {
+//			aux= String 
+		}
 		return null;
 	}
+
+	// Filtra as arestas para n�o haver repetidas em um alista
+		private HashSet<Aresta> getArestas(Vertice[] vertices) {
+			HashSet<Aresta> arestas = new HashSet<>();
+			for (Vertice vertice : vertices) {
+				for (Aresta aresta : vertice.getArestas()) {
+					arestas.add(aresta);
+				}
+			}
+			return arestas;
+		}
 
 }
